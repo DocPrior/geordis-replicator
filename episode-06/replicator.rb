@@ -1,3 +1,5 @@
+require 'pry'
+
 class Replicator
 
   attr_reader :plate
@@ -41,7 +43,6 @@ class Replicator
 
   def mix
     return unless glass_in_tummy
-
     if @power && @enterprise.reactor.draw_power(3)
       glass_in_tummy.inside.contents.shuffle!.compact!
     end
@@ -70,11 +71,12 @@ class Replicator
     end
 
     @enterprise.transporter.energize(obj: glass_in_reactor_core, from: @enterprise.reactor.core, to: @tummy)
-
+    # empty array
   end
 
   def transport_glass_to_replicator_plate
     @enterprise.transporter.energize(obj: glass_in_tummy, from: @tummy, to: @plate)
+    # nil
   end
 
 end

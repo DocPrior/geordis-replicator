@@ -1,3 +1,5 @@
+require 'pry'
+
 class Replicator
 
   attr_reader :plate
@@ -70,11 +72,9 @@ class Replicator
     end
 
     @enterprise.transporter.energize(obj: glass_in_reactor_core, from: @enterprise.reactor.core, to: @tummy)
-
   end
 
   def transport_glass_to_replicator_plate
-    return
     @enterprise.transporter.energize(obj: glass_in_tummy, from: @tummy, to: @plate)
   end
 
