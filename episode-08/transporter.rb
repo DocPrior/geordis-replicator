@@ -1,3 +1,4 @@
+require 'pry'
 class Transporter
 
   def initialize(enterprise)
@@ -7,7 +8,7 @@ class Transporter
   end
 
   def connect_to_power
-    @power = false
+    @power = @enterprise.reactor.on
   end
 
   def energize(obj:, from:, to:)
