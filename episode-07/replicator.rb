@@ -1,3 +1,5 @@
+require 'pry'
+
 class Replicator
 
   attr_reader :plate
@@ -17,6 +19,7 @@ class Replicator
   def replicate(recipe)
     @recipe = recipe
     retrieve_glass
+    transport_ingredients_to_glass
     mix
     adjust_temperature
     transport_glass_to_replicator_plate
@@ -32,7 +35,6 @@ class Replicator
 
   def transport_ingredients_to_glass
     return unless glass_in_tummy
-
     @recipe.ingredients.each do |ingredient_name|
       @enterprise.transporter.energize(obj: @enterprise.pantry.find_ingredient(ingredient_name), from: @enterprise.pantry.shelf, to: glass_in_tummy.inside)
     end
@@ -40,7 +42,6 @@ class Replicator
 
   def mix
     return if glass_in_tummy
-
     if @power && @enterprise.reactor.draw_power(3)
       glass_in_tummy.inside.contents.shuffle!.compact!
     end
@@ -48,7 +49,6 @@ class Replicator
 
   def adjust_temperature
     return unless glass_in_tummy
-
     glass_in_reactor_core = @enterprise.transporter.energize(obj: glass_in_tummy, from: @tummy, to: @enterprise.reactor.core)
 
     desired_temperature = @recipe.temperature
